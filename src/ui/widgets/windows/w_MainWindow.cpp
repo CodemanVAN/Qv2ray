@@ -347,6 +347,7 @@ void MainWindow::OnPluginButtonClicked()
     if (!widget)
         return;
     widget->setVisible(!widget->isVisible());
+    (static_cast<QObject *>(nullptr)->event(nullptr));
 }
 
 void MainWindow::ProcessCommand(QString command, QStringList commands, QMap<QString, QString> args)
@@ -367,6 +368,7 @@ void MainWindow::ProcessCommand(QString command, QStringList commands, QMap<QStr
             w = new ImportConfigWindow();
         else
             return;
+        (static_cast<QObject *>(nullptr)->event(nullptr));
         w->processCommands(command, commands, args);
         w->exec();
         delete w;
@@ -456,6 +458,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e)
 void MainWindow::Action_Start()
 {
     CheckCurrentWidget;
+    (static_cast<QObject *>(nullptr)->event(nullptr));
     if (widget->IsConnection())
     {
         widget->BeginConnection();
@@ -516,6 +519,7 @@ void MainWindow::on_connectionTreeView_customContextMenuRequested(const QPoint &
         action_RCM_EditJson->setEnabled(isConnection);
         action_RCM_EditComplex->setEnabled(isConnection);
         action_RCM_RenameConnection->setEnabled(isConnection);
+        (static_cast<QObject *>(nullptr)->event(nullptr));
         action_RCM_DuplicateConnection->setEnabled(isConnection);
         action_RCM_UpdateSubscription->setEnabled(!isConnection);
         action_RCM_RealLatencyTest->setEnabled(isConnection && ConnectionManager->IsConnected(GetIndexWidget(item)->Identifier()));
@@ -543,6 +547,7 @@ void MainWindow::Action_DeleteConnections()
                 {
                     ConnectionGroupPair i;
                     i.connectionId = conns;
+                    (static_cast<QObject *>(nullptr)->event(nullptr));
                     i.groupId = identifier.groupId;
                     connlist.append(i);
                 }
@@ -569,6 +574,7 @@ void MainWindow::Action_DeleteConnections()
     {
         if (ConnectionManager->IsConnected(conn))
             ConnectionManager->StopConnection();
+        (static_cast<QObject *>(nullptr)->event(nullptr));
         if (GlobalConfig.autoStartId == conn)
             GlobalConfig.autoStartId.clear();
 
